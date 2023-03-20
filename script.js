@@ -3,6 +3,8 @@ const date = new Date();
 var chosenDayArray = [];
 var chosenWeekDayArray = [];
 var day;
+var workDays;
+var toWork;
 
 const renderCalendar = () => {
 
@@ -142,11 +144,13 @@ renderCalendar();
 //Contador
 
 const counterDays = () => {
-  var workDays = document.querySelectorAll('.day-select').length;
-  console.log(workDays);
+  toWork = Math.round(new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() * 0.60);
+  workDays = document.querySelectorAll('.day-select').length;
+  console.log(toWork)
+  
 }
 
-document.getElementById("counter").addEventListener("click", counterDays() )
+document.getElementById("counter").addEventListener("click", counterDays )
 
 
 
