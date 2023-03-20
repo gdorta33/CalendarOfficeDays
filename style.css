@@ -114,8 +114,8 @@ html{
   cursor: pointer;
 }
 
-.prev-date,
-.next-date {
+.prev-month,
+.next-month {
   opacity: 0.5;
 }
 
@@ -123,8 +123,7 @@ html{
   background-color: #167e56;
 }
 
-.column-select,
-.selectDay{
+.day-select{
   background-color: #155575;
 }
 
