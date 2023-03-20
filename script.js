@@ -1,8 +1,7 @@
 const date = new Date();
 
-var check = 0;
-var chosenDay;
 var chosenDayArray = [];
+var chosenWeekDayArray = [];
 var day;
 
 const renderCalendar = () => {
@@ -48,8 +47,8 @@ const renderCalendar = () => {
 
   //Add the days of the current months
   for(let i = 1; i <= lastDay ;i++) {
-    let findWeekDay = chosenDayArray.find(e => e==new Date(date.getFullYear(), date.getMonth(), i).getDay()); //Return the value of the day found in the array of the chosen days.
-    if(findWeekDay !== undefined){
+    let findWeekDay = chosenWeekDayArray.find(e => e==new Date(date.getFullYear(), date.getMonth(), i).getDay()); //Return the value of the day found in the array of the chosen days.
+    if((findWeekDay !== undefined) || chosenDayArray.includes(i-1)){
       days += `<div class="day-select">${i}</div>`;
     } 
     else if(i === (new Date().getDate()) && (date.getMonth() === new Date().getMonth())){
@@ -73,12 +72,16 @@ const renderCalendar = () => {
       day[y].addEventListener("click", () => {
         if (day[y].className == ""){
           day[y].className = "day-select";
+          chosenDayArray.push(y);
+          chosenDayArray = chosenDayArray.filter((item, pos) => chosenDayArray.indexOf(item) == pos)
         }
         else {
           day[y].className = "";
+          chosenDayArray.splice(chosenDayArray.indexOf(y),1)
         }
       })
   }
+
 };
 
 //date = newDate()... so wtf with this function. Ohhh the month could be change ater... xd
@@ -93,7 +96,7 @@ document.querySelector('.prev').
 addEventListener("click", () => {
   date.setMonth(date.getMonth() - 1);
   ifMonthEqual();
-  chosenDayArray = [];
+  chosenWeekDayArray = [];
   renderCalendar();
 })
 
@@ -102,7 +105,7 @@ document.querySelector('.next').
 addEventListener("click", () => {
   date.setMonth(date.getMonth() + 1);
   ifMonthEqual();
-  chosenDayArray = [];
+  chosenWeekDayArray = [];
   renderCalendar();
 })
 
@@ -111,7 +114,7 @@ document.querySelector(".date p").addEventListener("click", () => {
   if(document.querySelector(".date p").className === "otherMonth"){
     date.setMonth(new Date().getMonth());
     document.querySelector(".date p").className = ""
-    chosenDayArray = [];
+    chosenWeekDayArray = [];
     renderCalendar();
   }
 })
@@ -122,20 +125,28 @@ const weekDay = document.querySelectorAll('.weekdays div');
 //Select all the days of x day.
 for(let z = 0; z < weekDay.length; z++){
   weekDay[z].addEventListener("click", () => {
-      if(!chosenDayArray.includes(z)) {
-        chosenDayArray.push(z)
+      if(!chosenWeekDayArray.includes(z)) {
+        chosenWeekDayArray.push(z)
         // To eliminate duplicates. definition of filter: filter((element) => { /* … */ }) |  filter((element, index) => { /* … */ }) | filter((element, index, array) => { /* … */ })}
-        chosenDayArray = chosenDayArray.filter((item, pos) => chosenDayArray.indexOf(item) == pos)
+        chosenWeekDayArray = chosenWeekDayArray.filter((item, pos) => chosenWeekDayArray.indexOf(item) == pos)
       } else {
-        let indexDayArray = chosenDayArray.indexOf(z)
-        chosenDayArray.splice(indexDayArray,1)
-        check = 0;
+        let indexDayArray = chosenWeekDayArray.indexOf(z)
+        chosenWeekDayArray.splice(indexDayArray,1)
       }
     renderCalendar();
   })
 }
 
 renderCalendar();
+
+//Contador
+
+const counterDays = () => {
+  var workDays = document.querySelectorAll('.day-select').length;
+  console.log(workDays);
+}
+
+document.getElementById("counter").addEventListener("click", counterDays() )
 
 
 
