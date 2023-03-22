@@ -11,13 +11,13 @@ html{
 
 .container{
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: #12121f;
   color: #eee;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  
 }
 
 .calendar{
@@ -126,4 +126,63 @@ html{
 .day-select{
   background-color: #155575;
 }
+
+body{
+  background: #262626;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#counter {
+  background: #167e56;
+  cursor: pointer;
+  border: none;
+  padding: 12px 24px;
+  color: #FFF;
+  font-size: 1.5em;
+  font-weight: bold;
+  position: relative;
+  border-radius: 12px;
+  margin-top: 1em;
+  z-index: 1;
+}
+
+#counter::before {
+  content: "";
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+  135deg,
+  #167e56, #082e20, #167e56, #082e20,
+  #167e56, #082e20, #167e56, #082e20);
+  background-size: 800%;
+  border-radius: 10px;
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+}
+
+#counter:hover::before {
+  opacity: 1;
+  transition: opacity ease 1s;
+}
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0 ;
+  }
+  50%{
+    background-position: 400% 0;
+  }
+  100%{
+    background-position: 800% 0;
+  }
+}
+
+
 
