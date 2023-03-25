@@ -80,6 +80,7 @@ html{
   justify-content: center;
   align-items: center;
   text-shadow: 0 0.3rem 0.5rem rgba(0,0,0,0.5);
+  border-radius: 10px;
 }
 
 .weekdays div:hover {
@@ -87,6 +88,10 @@ html{
   border: 0.2rem solid #777;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.weekDay-select{
+  background-color: #155575;
 }
 
 .days {
@@ -106,12 +111,17 @@ html{
   align-items: center;
   text-shadow: 0 0.3rem 0.5rem rgba(0,0,0,0.5);
   transition: background-color 0.2s;
+  cursor: pointer;
 }
 
-.days div:hover:not(.today) {
+.days div:hover:not([class*='today'],[class*='day-select']) {
   background-color: #262626;
   border: 0.2rem solid #777;
-  cursor: pointer;
+  border-radius: 10px;
+}
+
+.days .day-select:hover {
+  border: 0.2rem solid #777;
 }
 
 .prev-month,
@@ -124,7 +134,9 @@ html{
 }
 
 .day-select{
+  transition: linear;
   background-color: #155575;
+  border-radius: 10px;
 }
 
 body{
