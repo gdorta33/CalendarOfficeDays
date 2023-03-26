@@ -134,7 +134,6 @@ html{
 }
 
 .day-select{
-  transition: linear;
   background-color: #155575;
   border-radius: 10px;
 }

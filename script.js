@@ -1,8 +1,8 @@
 var selectedDays = [];
 var unselectedDays = [];
 var chosenWeekDayArray = [];
-var currentMonthDays;
-var daysToWork;
+var currentMonthDays = [];
+var daysToWork = [];
 var daysNotWorked;
 
 const date = new Date();
@@ -41,6 +41,7 @@ const renderCalendar = () => {
     document.querySelector(".date p").className = "otherMonth";
   } 
 
+
   let days = "";
 
   // Add the last days of the last month
@@ -49,37 +50,28 @@ const renderCalendar = () => {
     //x +=10 ==> x = x + 10
   }
 
-  
-
   //Add the days of the current months
   for(let i = 1; i <= lastDay ;i++) {
-    let findWeekDay = chosenWeekDayArray.includes(new Date(date.getFullYear(), date.getMonth(), i).getDay()); //If the day includes the number of the week day then return true
-    if((findWeekDay == true) || selectedDays.includes(i) ){
+    if(selectedDays.includes(i)){
       days += `<div class="day-select">${i}</div>`;
     } 
     else if(i === (new Date().getDate()) && (date.getMonth() === new Date().getMonth())){
       days += `<div class="today">${i}</div>`;
-      unselectedDays.push(i)
     }
     else {
       days += `<div>${i}</div>`;
-      unselectedDays.push(i)
     }
+    unselectedDays.push(i)
   }
-
-  //Delete the repeated unselectedDays
-  unselectedDays = unselectedDays.filter((item, pos) => unselectedDays.indexOf(item) == pos);
 
   //Add the first days of the next months
   for(let j = 1; j <= nextDays; j++) {
     days += `<div class="next-month">${j}</div>`;
   }
 
+
   //Print the days.
   monthDays.innerHTML = days;
-
-  
-
 
   //WeekEnd
   currentMonthDays = document.querySelectorAll('.days div:not([class="prev-month"], [class="next-month"])');
@@ -93,37 +85,50 @@ const renderCalendar = () => {
     }
   }
 
-  //Selector of days
+  //Add the day-select class and event listener in each day
   daysToWork = document.querySelectorAll('.days div:not([class="prev-month"], [class="next-month"], [class*="no-work"])');
   daysNotWorked = document.querySelectorAll('.days div:not([class*="no-work"])').length;
+  
   for(let y = 0; y < daysToWork.length; y++){
+    let day = parseInt(daysToWork[y].innerText);  
+    //let findWeekDay = chosenWeekDayArray.includes(new Date(date.getFullYear(), date.getMonth(), day).getDay()); //Return the day of week day where the y is.
+    if(selectedDays.includes(day) ){
+        daysToWork[y].className = "day-select";
+      } 
+      else{
+        daysToWork[y].className.replace("day-select", "").trim();
+      }
+    
     daysToWork[y].addEventListener("click", () => {
-        let indexOfDay = parseInt(document.querySelectorAll('.days div:not([class="prev-month"], [class="next-month"], [class*="no-work"])')[y].innerText);
         if (daysToWork[y].className == ""){
-          daysToWork[y].className = "day-select";
-          selectedDays.push(parseInt(indexOfDay));
+          selectedDays.push(day);
           selectedDays = selectedDays.filter((item, pos) => selectedDays.indexOf(item) == pos)
         }
         else if(!daysToWork[y].className.includes("day-select")){y
-          daysToWork[y].className += " day-select";  
-          selectedDays.push(parseInt(indexOfDay));
+          selectedDays.push(day);
           selectedDays = selectedDays.filter((item, pos) => selectedDays.indexOf(item) == pos);
         }
         else if(daysToWork[y].className == "day-select"){
-          daysToWork[y].className = "";
-          selectedDays.splice(selectedDays.indexOf(indexOfDay),1);
-          deleteUnSelectDay(y)
+          selectedDays.splice(selectedDays.indexOf(day),1);
         }
-        else if(daysToWork[y].className.includes("day-select")){
-          daysToWork[y].className = daysToWork[y].className.replace("day-select", "").trim();
-          selectedDays.splice(selectedDays.indexOf(indexOfDay),1);
-          deleteUnSelectDay(y)
+        //.today Case
+        else if(daysToWork[y].className.includes("day-select")){ 
+          selectedDays.splice(selectedDays.indexOf(day),1);
         }
+        renderCalendar();
       })
       /*The value of day[y] will have the previous date because start in 0. 
       For example if we click all the days 1,...,31 the array will be [0,..,30] so the day 15 in the array will be the day[14]*/
+      
+      //Delete the repeated days
+    selectedDays = selectedDays.filter((item, pos) => selectedDays.indexOf(item) == pos);
+    unselectedDays = unselectedDays.filter((item, pos) => unselectedDays.indexOf(item) == pos);
+    //Delete the selected days from unselected days
+    unselectedDays = unselectedDays.filter(x => !selectedDays.includes(x))
+      
   }
 };
+
 
 //date = newDate()... so wtf with this function. Ohhh the month could be change ater... xd
 const ifMonthEqual = () => { 
@@ -166,7 +171,7 @@ document.querySelector(".date p").addEventListener("click", () => {
   }
 })
 
-//Select all the days of x weekDay.
+//Select all the days of z weekDay.
 const weekDay = document.querySelectorAll('.weekdays div');
 for(let z = 1; z < weekDay.length -1; z++){
     weekDay[z].addEventListener("click", () => {
@@ -175,11 +180,12 @@ for(let z = 1; z < weekDay.length -1; z++){
         // To eliminate duplicates. definition of filter: filter((element) => { /* … */ }) |  filter((element, index) => { /* … */ }) | filter((element, index, array) => { /* … */ })}
         chosenWeekDayArray = chosenWeekDayArray.filter((item, pos) => chosenWeekDayArray.indexOf(item) == pos);
         weekDay[z].className = 'weekDay-select';
+        //Add all the selected days of z weekdays
+        selectedDays = selectedDays.concat(unselectedDays.filter((element) => z == new Date(date.getFullYear(), date.getMonth(), element).getDay()));
       } else {
-        let indexDayArray = chosenWeekDayArray.indexOf(z);
-        chosenWeekDayArray.splice(indexDayArray,1);
-        selectedDays = selectedDays.filter((element) => z !== new Date(date.getFullYear(), date.getMonth(), element).getDay());
+        chosenWeekDayArray.splice(chosenWeekDayArray.indexOf(z),1);
         weekDay[z].className = '';
+        selectedDays = selectedDays.filter((element) => z !== new Date(date.getFullYear(), date.getMonth(), element).getDay());
       }
     renderCalendar();
   })
