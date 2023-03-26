@@ -6,7 +6,6 @@ var daysToWork = [];
 var daysNotWorked;
 
 const date = new Date();
-const deleteUnSelectDay = x => unselectedDays.includes(x + 1) ?  unselectedDays.splice(unselectedDays.indexOf(x + 1),1 ): 0;
 
 const renderCalendar = () => {
 
@@ -91,7 +90,6 @@ const renderCalendar = () => {
   
   for(let y = 0; y < daysToWork.length; y++){
     let day = parseInt(daysToWork[y].innerText);  
-    //let findWeekDay = chosenWeekDayArray.includes(new Date(date.getFullYear(), date.getMonth(), day).getDay()); //Return the day of week day where the y is.
     if(selectedDays.includes(day) ){
         daysToWork[y].className = "day-select";
       } 
@@ -117,16 +115,13 @@ const renderCalendar = () => {
         }
         renderCalendar();
       })
-      /*The value of day[y] will have the previous date because start in 0. 
-      For example if we click all the days 1,...,31 the array will be [0,..,30] so the day 15 in the array will be the day[14]*/
-      
-      //Delete the repeated days
+    
+    //Delete the repeated days
     selectedDays = selectedDays.filter((item, pos) => selectedDays.indexOf(item) == pos);
     unselectedDays = unselectedDays.filter((item, pos) => unselectedDays.indexOf(item) == pos);
     //Delete the selected days from unselected days
     unselectedDays = unselectedDays.filter(x => !selectedDays.includes(x))
-      
-  }
+}
 };
 
 
@@ -173,20 +168,23 @@ document.querySelector(".date p").addEventListener("click", () => {
 
 //Select all the days of z weekDay.
 const weekDay = document.querySelectorAll('.weekdays div');
-for(let z = 1; z < weekDay.length -1; z++){
+for(let z = 0; z < weekDay.length; z++){
     weekDay[z].addEventListener("click", () => {
-      if(!chosenWeekDayArray.includes(z)) {
+      if(!chosenWeekDayArray.includes(z) && (z !== 0) && (z !== 6)) {
         chosenWeekDayArray.push(z);
         // To eliminate duplicates. definition of filter: filter((element) => { /* … */ }) |  filter((element, index) => { /* … */ }) | filter((element, index, array) => { /* … */ })}
         chosenWeekDayArray = chosenWeekDayArray.filter((item, pos) => chosenWeekDayArray.indexOf(item) == pos);
         weekDay[z].className = 'weekDay-select';
         //Add all the selected days of z weekdays
         selectedDays = selectedDays.concat(unselectedDays.filter((element) => z == new Date(date.getFullYear(), date.getMonth(), element).getDay()));
-      } else {
-        chosenWeekDayArray.splice(chosenWeekDayArray.indexOf(z),1);
-        weekDay[z].className = '';
-        selectedDays = selectedDays.filter((element) => z !== new Date(date.getFullYear(), date.getMonth(), element).getDay());
-      }
+      } else if ((z !== 0) && (z !== 6)) {
+          chosenWeekDayArray.splice(chosenWeekDayArray.indexOf(z),1);
+          weekDay[z].className = '';
+          selectedDays = selectedDays.filter((element) => z !== new Date(date.getFullYear(), date.getMonth(), element).getDay());
+        } else {
+          alert('hey')
+          weekDay[z].className = 'weekend';
+          }
     renderCalendar();
   })
 }
