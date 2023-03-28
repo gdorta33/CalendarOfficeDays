@@ -83,7 +83,7 @@ html{
   border-radius: 10px;
 }
 
-.weekdays div:hover {
+.weekdays div:hover:not([class*='weekDay-select'],[class*='weekDay-leave']) {
   background-color: #262626;
   border: 0.2rem solid #777;
   border-radius: 10px;
@@ -92,6 +92,15 @@ html{
 
 .weekDay-select{
   background-color: #155575;
+}
+
+.weekDay-leave{
+  background-color: #b43d2b;
+}
+
+.weekDay-leave:hover , .weekDay-select:hover {
+  border: 0.2rem solid #777;
+  cursor: pointer;
 }
 
 .days {
@@ -114,13 +123,13 @@ html{
   cursor: pointer;
 }
 
-.days div:hover:not([class*='today'],[class*='day-select']) {
+.days div:hover:not([class*='today'],[class*='day-select'],[class*='leave-day']) {
   background-color: #262626;
   border: 0.2rem solid #777;
   border-radius: 10px;
 }
 
-.days .day-select:hover {
+.days .day-select:hover , .leave-day:hover {
   border: 0.2rem solid #777;
 }
 
@@ -135,6 +144,11 @@ html{
 
 .day-select{
   background-color: #155575;
+  border-radius: 10px;
+}
+
+.leave-day{
+  background-color: #b43d2b;
   border-radius: 10px;
 }
 
