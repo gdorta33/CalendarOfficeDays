@@ -81,7 +81,7 @@ const renderCalendar = () => {
 
   //WeekEnd
   currentMonthDays = document.querySelectorAll('.days div:not([class="prev-month"], [class="next-month"])');
-  for(let w = 1; w < currentMonthDays.length; w++){
+  for(let w = 0; w < currentMonthDays.length; w++){
     let weekEnd = new Date(date.getFullYear(), date.getMonth(), w + 1).getDay();
     if((weekEnd == 0 || weekEnd == 6) && (currentMonthDays[w].className == '')){
       currentMonthDays[w].className += 'no-work';
