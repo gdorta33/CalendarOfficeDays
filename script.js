@@ -82,7 +82,7 @@ const renderCalendar = () => {
   }
 
   //Add the day-select class and event listener in each day
-  daysToWork = document.querySelectorAll('.days div:not([class="prev-month"], [class="next-month"], [class*="no-work"]');
+  daysToWork = document.querySelectorAll('.days div:not([class="prev-month"], [class="next-month"], [class*="no-work"])');
     
   for(let y = 0; y < daysToWork.length; y++){
     let day = parseInt(daysToWork[y].innerText);  
@@ -185,3 +185,21 @@ function firstMessage(){
 }
 
 document.getElementById("counter").addEventListener("click", counterDays)
+
+const arrow = document.getElementById('arrow');
+
+arrow.addEventListener("click",function(){
+  if(arrow.innerHTML=='&gt;'){
+  document.querySelector('.guide-container').style.left='0rem';
+  arrow.style.left="0rem"
+  arrow.innerHTML='<'
+  }
+  else{
+    document.querySelector('.guide-container').style.left='-35rem';
+    arrow.style.left="-35rem"
+    arrow.innerHTML='>'
+  }
+})
+
+
+
