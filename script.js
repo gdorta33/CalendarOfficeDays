@@ -15,17 +15,17 @@ const renderCalendar = () => {
   const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
   const nextDays = 6 - lastDayIndex;
   const months = [
-    "January",  
-    "February",  
-    "March",  
-    "April",  
-    "May",  
-    "June",  
-    "July",  
-    "August",  
-    "September",  
-    "October",  
-    "November",  
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
     "December",
   ]
 
@@ -40,7 +40,7 @@ const renderCalendar = () => {
 
   let days = "";
 
-  /* Start Print */
+  /* ====== Start Print ====== */
 
   // Add the last days of the last month
   for(let x = firstDayIndex; x > 0 ;x--) {
@@ -67,7 +67,7 @@ const renderCalendar = () => {
   //Print
   monthDays.innerHTML = days;
 
-  /* End Print */
+  /* ====== End Print ====== */
 
   //WeekEnd (It is w-1 in the array because the for, start in 1 and the array start in 0)
   currentMonthDays = document.querySelectorAll('.days div:not([class="prev-month"], [class="next-month"])');
@@ -141,6 +141,7 @@ addEventListener("click", () => {
   date.setMonth(date.getMonth() - 1);
   ifMonthEqual();
   document.querySelectorAll('.weekDay-select').forEach(x=>x.className='')
+  document.querySelectorAll('.weekDay-leave').forEach(x=>x.className='')
   renderCalendar();
 })
 
@@ -150,6 +151,7 @@ addEventListener("click", () => {
   date.setMonth(date.getMonth() + 1);
   ifMonthEqual();
   document.querySelectorAll('.weekDay-select').forEach(x=>x.className='')
+  document.querySelectorAll('.weekDay-leave').forEach(x=>x.className='')
   renderCalendar();
 })
 
@@ -159,6 +161,7 @@ document.querySelector(".date p").addEventListener("click", () => {
     date.setMonth(new Date().getMonth());
     document.querySelector(".date p").className = ""
     document.querySelectorAll('.weekDay-select').forEach(x=>x.className='')
+    document.querySelectorAll('.weekDay-leave').forEach(x=>x.className='')
     renderCalendar();
   }
 })
@@ -189,15 +192,15 @@ document.getElementById("counter").addEventListener("click", counterDays)
 const arrow = document.getElementById('arrow');
 
 arrow.addEventListener("click",function(){
-  if(arrow.innerHTML=='&gt;'){
+  if(arrow.innerText=='>'){
   document.querySelector('.guide-container').style.left='0rem';
   arrow.style.left="0rem"
-  arrow.innerHTML='<'
+  arrow.innerText='<'
   }
   else{
     document.querySelector('.guide-container').style.left='-35rem';
     arrow.style.left="-35rem"
-    arrow.innerHTML='>'
+    arrow.innerText='>'
   }
 })
 

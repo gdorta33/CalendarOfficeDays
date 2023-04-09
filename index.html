@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
 </head>
+
 <body>
   <div class="container">
     <div class="calendar">
@@ -45,20 +46,24 @@
         <div class="guide">
           <h3>Guide</h3>
           <span>Welcome to the Calendar 0.60. This app its a way to confirm that
-            you are ok with the 60% of the days in case that you find yourself
+            you are ok with the 60% of the office days in case that you find yourself
             lost</span>
-          <br />
-          <span> </span>
-          <br />
-          <span>This calendar suppose that you work from Monday to Friday. And
-            these will be the days that initially calculate the %60
-          </span>
+          <br /><br />
+          <h4> How its works? </h4>
+            <li> First of all, the calendar suppose that you work from Mondays to Fridays. So it will initially
+              calculate the 60% of them.<br /></li>
+            <li> When you select a day (Blue), its going to count like a day that you go to work to the office <br />
+            </li>
+            <li> And when you select again (Red), its going to count like a license day (Not included when do the 60%)
+            </li>
         </div>
       </div>
     </div>
-    <div class="guide-arrow-container" id="arrow"><div class="guide-arrow">></div></div>
-    
+    <div class="guide-arrow-container" id="arrow">
+      <div class="guide-arrow">></div>
+    </div>
   </aside>
   <script src="script.js"></script>
 </body>
+
 </html>

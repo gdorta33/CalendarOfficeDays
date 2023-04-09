@@ -271,6 +271,7 @@ aside{
 .guide{
   width: 35rem;
   position: relative;
+  font-size: small;
 }
 
 .guide-arrow-container{
