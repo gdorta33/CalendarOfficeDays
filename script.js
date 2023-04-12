@@ -104,29 +104,29 @@ const renderCalendar = () => {
     
   
   daysToWorkArray = Array.from(daysToWork);
+}
 
-  //Select all the days of z weekDay.
-  const weekDay = document.querySelectorAll('.weekdays div');
-  for(let z = 0; z < weekDay.length; z++){
-      weekDay[z].addEventListener("click", () => {
-        if((z == 0) || (z == 6)){
-          weekDay[z].className = 'weekend';
-        }
-        else if(weekDay[z].className == '') {
-          weekDay[z].className = 'weekDay-select';
-          //Gives you the days to work in the weekDay column
-          daysToWorkArray.filter((element) => z == new Date(date.getFullYear(), date.getMonth(), element.innerText).getDay()).forEach(x=>x.className.includes("today") ? x.className += " day-select" : x.className = "day-select")
-        } 
-        else if (weekDay[z].className == 'weekDay-select') {
-          weekDay[z].className = 'weekDay-leave';
-          daysToWorkArray.filter((element) => z == new Date(date.getFullYear(), date.getMonth(), element.innerText).getDay()).forEach(x=>x.className.includes("today") ? x.className = x.className.replace('day-select', 'leave-day').trim() : x.className = "leave-day")
-        } 
-        else if (weekDay[z].className == "weekDay-leave") {
-          weekDay[z].className = "";
-          daysToWorkArray.filter((element) => z == new Date(date.getFullYear(), date.getMonth(), element.innerText).getDay()).forEach(x=>x.className.includes("today") ? x.className = x.className.replace("leave-day", "").trim() : x.className="")
-        } 
-    })
-  }
+//Select all the days of z weekDay.
+const weekDay = document.querySelectorAll('.weekdays div');
+for(let z = 0; z < weekDay.length; z++){
+    weekDay[z].addEventListener("click", () => {
+      if((z == 0) || (z == 6)){
+        weekDay[z].className = 'weekend';
+      }
+      else if(weekDay[z].className == '') {
+        weekDay[z].className = 'weekDay-select';
+        //Gives you the days to work in the weekDay column
+        daysToWorkArray.filter((element) => z == new Date(date.getFullYear(), date.getMonth(), element.innerText).getDay()).forEach(x=>x.className.includes("today") ? x.className += " day-select" : x.className = "day-select")
+      } 
+      else if (weekDay[z].className == 'weekDay-select') {
+        weekDay[z].className = 'weekDay-leave';
+        daysToWorkArray.filter((element) => z == new Date(date.getFullYear(), date.getMonth(), element.innerText).getDay()).forEach(x=>x.className.includes("today") ? x.className = x.className.replace('day-select', 'leave-day').trim() : x.className = "leave-day")
+      } 
+      else if (weekDay[z].className == "weekDay-leave") {
+        weekDay[z].className = "";
+        daysToWorkArray.filter((element) => z == new Date(date.getFullYear(), date.getMonth(), element.innerText).getDay()).forEach(x=>x.className.includes("today") ? x.className = x.className.replace("leave-day", "").trim() : x.className="")
+      } 
+  })
 }
 
 const ifMonthEqual = () => { 
