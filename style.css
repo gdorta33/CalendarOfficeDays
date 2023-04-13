@@ -27,6 +27,11 @@ html{
   box-shadow: 0 0.5rem 3rem rgba(0,0,0,0.4);
 }
 
+/* To not Make selecteable the text of the number of days */
+.calendar > *:not([class='month']){
+  user-select: none;
+}
+
 .month {
   width:100%;
   height: 12rem;
@@ -300,6 +305,12 @@ aside{
 
 .guide-arrow{
   margin-right: 3px;
+}
+
+.selection-area {
+  background: rgba(46, 115, 252, 0.11);
+  border: 2px solid rgba(98, 155, 255, 0.81);
+  border-radius: 0.1em;
 }
 
 

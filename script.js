@@ -94,7 +94,21 @@ const renderCalendar = () => {
         daysToWork[y].className += " day-select"
       }
       else if(daysToWork[y].className.includes("day-select")){ 
-        daysToWork[y].className = daysToWork[y].className.replace('day-select', 'leave-day')
+        daysToWork[y].className = daysToWork[y].className.replace('day-select', '').trim()
+      }
+      else if(daysToWork[y].className.includes("leave-day")){ 
+        daysToWork[y].className = daysToWork[y].className.replace('leave-day', '').trim()
+      }
+    });
+    daysToWork[y].addEventListener("contextmenu", (e) => {
+      if (daysToWork[y].className == ""){
+        daysToWork[y].className = "leave-day"
+      } 
+      else if(daysToWork[y].className == "today"){
+        daysToWork[y].className += " leave-day"
+      }
+      else if(daysToWork[y].className.includes("day-select")){ 
+        daysToWork[y].className = daysToWork[y].className.replace('day-select', 'leave-day').trim()
       }
       else if(daysToWork[y].className.includes("leave-day")){ 
         daysToWork[y].className = daysToWork[y].className.replace('leave-day', '').trim()
@@ -219,5 +233,40 @@ window.addEventListener("load", (event) => {
     }
 });
 
+// ==================== Code of SimonWeb to Selectable the divs ==================== //
+
+const selection = new SelectionArea({
+  selectables: ['.days div:not([class="prev-month"], [class="next-month"], [class*="no-work"])'],
+  boundaries: ['.days'],
+  behaviour: {
+    overlap: 'keep'
+  },
+  features:{
+    singleTap: {
+      allow:false
+    }
+  }
+}).on('move', ({store: {changed: {added, removed}}}) => {
+  for (const el of added) {
+    if (el.className == ""){
+      el.className = "day-select"
+    } 
+    else if(el.className == "today"){
+      el.className += " day-select"
+    }
+    else if(el.className.includes("day-select")){ 
+      el.className = el.className.replace('day-select', '').trim()
+    }
+    else if(el.className.includes("leave-day")){ 
+      el.className = el.className.replace('leave-day', 'day-select').trim()
+    }
+  }
+});
+
+var monthDaysAll = document.querySelectorAll('.days div')
+
+for(i=0; i<monthDaysAll.length;i++){
+  monthDaysAll[i].addEventListener("contextmenu", e => e.preventDefault());
+}
 
 
