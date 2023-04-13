@@ -189,20 +189,35 @@ function firstMessage(){
 
 document.getElementById("counter").addEventListener("click", counterDays)
 
-const arrow = document.getElementById('arrow');
+const arrow = document.querySelector('#arrow');
 
 arrow.addEventListener("click",function(){
   if(arrow.innerText=='>'){
   document.querySelector('.guide-container').style.left='0rem';
   arrow.style.left="0rem"
-  arrow.innerText='<'
+  arrow.children[0].innerText='<'
+  document.querySelector('.guide-arrow-container').style.borderRadius='80% 0% 0% 80%';
   }
   else{
-    document.querySelector('.guide-container').style.left='-35rem';
-    arrow.style.left="-35rem"
-    arrow.innerText='>'
+    document.querySelector('.guide-container').style.left="-39rem";
+    arrow.style.left="-39rem"
+    arrow.children[0].innerText='>'
+    document.querySelector('.guide-arrow-container').style.borderRadius= '0% 80% 80% 0%';
   }
 })
+
+window.addEventListener("load", (event) => {
+  if(arrow.innerText=='>'){
+    document.querySelector('.guide-container').style.left='0rem';
+    arrow.style.left="0rem"
+    arrow.children[0].innerText='<'
+    }
+    else{
+      document.querySelector('.guide-container').style.left="-39rem";
+      arrow.style.left="-39rem"
+      arrow.children[0].innerText='>'
+    }
+});
 
 
 
